@@ -35,12 +35,16 @@ public class DoubleLinkedLists {
         }
     }
 
-    void insertAfter(String key, Student data){ 
+    void insertAfter(String key, Student data) {
         Node newNode = new Node(data);
         Node temp = head;
-        while(temp != null) {
-            if(temp.data.nim.equalsIgnoreCase(key)) {
-                if(temp == tail) {
+        boolean found = false;  
+
+        while (temp != null) {
+            if (temp.data.nim.equalsIgnoreCase(key)) {
+                found = true;
+
+                if (temp == tail) {
                     addLast(data);
                 } else {
                     newNode.next = temp.next;
@@ -48,13 +52,15 @@ public class DoubleLinkedLists {
                     temp.next.prev = newNode;
                     temp.next = newNode;
                 }
+                break;
             }
             temp = temp.next;
         }
-        if(temp == null) {
-            System.out.println("Insertion failed. Data (" + key + ") not found!!");
-        }
+
+    if(!found) {
+        System.out.println("Insertion failed. Data (" + key + ") not found!!");
     }
+}
 
     void removeFirst(){ 
         if(isEmpty()){ 
@@ -67,16 +73,22 @@ public class DoubleLinkedLists {
         } 
     }
     
-    void removeLast(){ 
-        if(isEmpty()){ 
-            System.out.println("Double linked list is currently empty!!"); 
-        } else if (head == tail) {
-            head = tail = null;
-        } else {
-            tail = tail.prev; 
-            tail.next = null; 
-        } 
+   void removeLast(){
+    if(isEmpty()){
+        System.out.println("Double linked list is currently empty!!");
+    } 
+    else if(head.next == null){
+        head = null;
+    } 
+    else {
+        Node temp = head;
+
+        while(temp.next != null){
+            temp = temp.next;
+        }
+        temp.prev.next = null;
     }
+}
 
     void remove(int index) {
         if(isEmpty()) {
