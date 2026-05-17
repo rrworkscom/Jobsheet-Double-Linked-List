@@ -91,23 +91,35 @@ public class DoubleLinkedLists {
 }
 
     void remove(int index) {
-        if(isEmpty()) {
-            System.out.println("Double linked list is currently empty!!");
-        } else if(index == 0) {
-            removeFirst();
-        } else {
-            Node temp = head;
-            for (int i = 0; i < index; i++) {
-                temp = temp.next;
-            }
-            if(temp == tail) {
-                removeLast();
-            } else {
-                temp.prev.next = temp.next;
-                temp.next.prev = temp.prev;
-            }
-        }
+    if(isEmpty()) {
+        System.out.println("Double linked list is currently empty!!");
+        return;
     }
+    if(index < 0) {
+        System.out.println("Invalid index (negative index)!");
+        return;
+    }
+    Node temp = head;
+    int i = 0;
+    while(temp != null && i < index) {
+        temp = temp.next;
+        i++;
+    }
+    if(temp == null) {
+        System.out.println("Invalid index (out of bounds)!");
+        return;
+    }
+    if(temp == head) {
+        removeFirst();
+    } 
+    else if(temp == tail) {
+        removeLast();
+    } 
+    else {
+        temp.prev.next = temp.next;
+        temp.next.prev = temp.prev;
+    }
+}
 
     void print() {
         if(!isEmpty()) {
